@@ -318,7 +318,7 @@ Designed and developed the customer interface, kitchen management system, Fireba
 ## Screenshots
 
 ### Customer Homepage
-![Atelier Homepage](screenshots/01-homepage.png)
+![Atelier Homepage](https://raw.githubusercontent.com/geroi2017/atelier/main/screenshots/01-homepage.png)
 
 ### Menu and Food Selection
 ![Atelier Menu](screenshots/02-menu.png)
