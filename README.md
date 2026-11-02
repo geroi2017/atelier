@@ -317,17 +317,17 @@ Designed and developed the customer interface, kitchen management system, Fireba
 
 ## Screenshots
 
-### Homepage
-![Homepage](screenshots/01-homepage.png)
+### Customer Homepage
+![Atelier Homepage](screenshots/01-homepage.png)
 
-### Menu
-![Menu](screenshots/02-menu.png)
+### Menu and Food Selection
+![Atelier Menu](screenshots/02-menu.png)
 
-### Customer Orders and Rewards
-![Customer Orders](screenshots/03-customer-orders.png)
+### Customer Orders and Loyalty
+![Order Tracking](screenshots/03-customer-orders.png)
 
 ### Shopping Cart
-![Shopping Cart](screenshots/04-order-cart.png)
+![Order Cart](screenshots/04-order-cart.png)
 
 ### Kitchen Display
 ![Kitchen Display](screenshots/05-kitchen-display.png)
