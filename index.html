@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A premium QR-based restaurant ordering experience.">
+  <title>Atelier — Digital Menu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="announcement"><span class="dot"></span> FRESHLY PREPARED · MADE WITH CARE</div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Atelier home"><span class="brand-mark">A</span><span>ATELIER<small>KITCHEN & WINE</small></span></a>
+    <div class="table-pill"><span class="table-icon">⌑</span> TABLE <strong id="tableNumber">08</strong></div>
+    <button class="icon-button kitchen-toggle" id="kitchenToggle" aria-label="Open kitchen display" title="Kitchen display">▤</button>
+    <button class="cart-button" id="openCart"><span>YOUR ORDER</span><span class="cart-count" id="cartCount">0</span></button>
+  </header>
+
+  <main id="customerView">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">A LITTLE SOMETHING SPECIAL</p>
+        <h1>Good food.<br><em>Good moments.</em></h1>
+        <p class="hero-description">Thoughtfully prepared plates, seasonal ingredients, and a table waiting just for you.</p>
+        <a class="text-link" href="#menu">EXPLORE THE MENU <span>↓</span></a>
+      </div>
+      <div class="hero-image" role="img" aria-label="Restaurant table with a beautifully prepared meal">
+        <div class="image-note"><span>01 / 04</span><strong>Seasonal<br>favourites</strong></div>
+      </div>
+      <div class="hero-bottom"><span>EST. 2024</span><span>GOOD TASTE, NO RUSH</span><span>KUALA LUMPUR</span></div>
+    </section>
+
+    <section class="menu-section" id="menu">
+      <div class="section-heading">
+        <div><p class="eyebrow">MADE FOR YOUR MOMENT</p><h2>Explore the menu</h2></div>
+        <p class="menu-note">Choose what you're craving.<br>We'll take care of the rest.</p>
+      </div>
+      <div class="menu-tools">
+        <div class="category-list" id="categories" aria-label="Menu categories"></div>
+        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Find a dish..." aria-label="Search menu"></label>
+      </div>
+      <div class="menu-grid" id="menuGrid"></div>
+    </section>
+    <section class="customer-dashboard" id="myAccount">
+      <div class="dashboard-heading">
+        <p class="eyebrow">YOUR ATELIER EXPERIENCE</p>
+        <h2>Your orders & rewards</h2>
+        <p>Follow your order from the kitchen and collect points with every completed visit.</p>
+      </div>
+      <div class="dashboard-grid">
+        <article class="dashboard-card">
+          <div class="dashboard-card-heading"><div><p class="eyebrow">LIVE UPDATES</p><h3>Track your orders</h3></div><span class="dashboard-icon">↗</span></div>
+          <div id="customerOrders" class="customer-orders"><p class="dashboard-empty">Your recent orders will appear here.</p></div>
+        </article>
+        <article class="dashboard-card loyalty-card">
+          <div class="dashboard-card-heading"><div><p class="eyebrow">ATELIER REWARDS</p><h3>Your points</h3></div><span class="dashboard-icon">✳</span></div>
+          <div class="points-total"><strong id="loyaltyPoints">0</strong><span>POINTS</span></div>
+          <p class="loyalty-copy">Earn 1 point for every RM 1 spent. Points are added when your order is completed.</p>
+          <p class="loyalty-footnote" id="loyaltyLifetime">Start collecting with your next order.</p>
+        </article>
+      </div>
+    </section>
+    <section class="bottom-note"><span>✳</span><p>Every dish is made to order.<br><strong>Thank you for dining with us.</strong></p></section>
+  </main>
+
+  <aside class="cart-overlay" id="cartOverlay" aria-hidden="true">
+    <div class="cart-panel">
+      <div class="panel-heading"><div><p class="eyebrow">YOUR TABLE · <span id="cartTable">08</span></p><h2>Your order</h2></div><button class="close-button" id="closeCart" aria-label="Close cart">×</button></div>
+      <div class="cart-items" id="cartItems"><div class="empty-cart">Your basket is waiting for something delicious.</div></div>
+      <div class="cart-footer">
+        <div class="subtotal"><span>Subtotal</span><strong id="subtotal">RM 0.00</strong></div>
+        <p class="checkout-hint">Taxes and any applicable charges are confirmed at checkout.</p>
+        <button class="primary-button full-width" id="checkoutButton" disabled>CONTINUE TO CHECKOUT <span>→</span></button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="modal-overlay" id="checkoutModal" aria-hidden="true">
+    <form class="checkout-modal" id="checkoutForm">
+      <button type="button" class="close-button modal-close" id="closeCheckout" aria-label="Close checkout">×</button>
+      <p class="eyebrow">ALMOST THERE</p><h2>Complete your order</h2>
+      <p class="modal-subtitle">Your order will be sent to the kitchen for table <strong id="checkoutTable">08</strong>.</p>
+      <label class="field-label">Your name <span>(optional)</span><input id="customerName" type="text" placeholder="How should we address you?"></label>
+      <fieldset class="payment-options"><legend>Choose a payment method</legend>
+        <label class="payment-option"><input type="radio" name="payment" value="Online payment" checked><span><strong>Online payment</strong><small>Demo option — no real payment is processed</small></span></label>
+        <label class="payment-option"><input type="radio" name="payment" value="Kaspi Bank transfer"><span><strong>Kaspi Bank transfer</strong><small>Pay using your banking app</small></span></label>
+        <label class="payment-option"><input type="radio" name="payment" value="Pay at terminal"><span><strong>Pay at the terminal</strong><small>Settle your bill at the counter</small></span></label>
+      </fieldset>
+      <button class="primary-button full-width" type="submit">PLACE ORDER <span>→</span></button>
+      <p class="privacy-note">By placing an order, you confirm your selections. This is a portfolio demo.</p>
+    </form>
+  </div>
+
+  <section class="kitchen-view hidden" id="kitchenView">
+    <div class="kitchen-header"><div><p class="eyebrow">ATELIER · OPERATIONS</p><h1>Kitchen display</h1><p>Live order queue on this device</p></div><button class="secondary-button" id="backToMenu">← BACK TO MENU</button></div>
+    <div class="staff-login" id="staffLogin">
+      <h2>Staff sign in</h2>
+      <p>Kitchen access is restricted to authorised restaurant staff.</p>
+      <form id="staffLoginForm">
+        <label class="field-label">Email<input id="staffEmail" type="email" required autocomplete="username"></label>
+        <label class="field-label">Password<input id="staffPassword" type="password" required autocomplete="current-password"></label>
+        <button class="primary-button" type="submit">SIGN IN</button>
+        <p class="login-error" id="staffLoginError" role="alert"></p>
+      </form>
+    </div>
+    <div id="kitchenContent" class="hidden">
+    <div class="kitchen-stats"><div><span>ACTIVE ORDERS</span><strong id="activeCount">0</strong></div><div><span>COMPLETED TODAY</span><strong id="completedCount">0</strong></div><div><span>AVERAGE STATUS</span><strong>LIVE</strong></div></div>
+    <div class="order-board" id="orderBoard"></div>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status"></div>
+  <footer><span>ATELIER KITCHEN & WINE</span><span>CRAFTED FOR GOOD MOMENTS · © 2026</span></footer>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

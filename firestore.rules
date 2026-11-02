@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function staffFor(restaurantId) {
+      return signedIn()
+        && exists(/databases/$(database)/documents/staff/$(request.auth.uid))
+        && get(/databases/$(database)/documents/staff/$(request.auth.uid)).data.isActive == true
+        && get(/databases/$(database)/documents/staff/$(request.auth.uid)).data.restaurantId == restaurantId;
+    }
+
+    // Public menu data: only active restaurant/menu records are readable.
+    match /restaurants/{restaurantId} {
+      allow read: if resource.data.isActive == true;
+      allow write: if false;
+    }
+    match /menuCategories/{categoryId} {
+      allow read: if resource.data.isActive == true;
+      allow write: if false;
+    }
+    match /menuItems/{itemId} {
+      allow read: if resource.data.isAvailable == true;
+      allow write: if false;
+    }
+    match /tables/{tableId} {
+      allow read: if resource.data.isActive == true;
+      allow write: if false;
+    }
+
+    // Customers can create and read only their own orders. Staff manage orders.
+    match /orders/{orderId} {
+      allow create: if signedIn()
+        && request.resource.data.customerUid == request.auth.uid
+        && request.resource.data.restaurantId is string
+        && request.resource.data.status == 'Pending'
+        && request.resource.data.paymentStatus in ['Awaiting payment', 'Awaiting confirmation', 'Pay at counter'];
+      allow read: if signedIn()
+        && (resource.data.customerUid == request.auth.uid
+            || staffFor(resource.data.restaurantId));
+      allow update: if staffFor(resource.data.restaurantId)
+        && request.resource.data.restaurantId == resource.data.restaurantId
+        && request.resource.data.customerUid == resource.data.customerUid;
+      allow delete: if false;
+    }
+
+    // Loyalty balances are readable by their owner; only restaurant staff can award points.
+    match /loyalty/{customerUid} {
+      allow read: if signedIn()
+        && (request.auth.uid == customerUid || staffFor(resource.data.restaurantId));
+      allow create: if staffFor(request.resource.data.restaurantId)
+        && request.resource.data.customerUid == customerUid;
+      allow update: if staffFor(resource.data.restaurantId)
+        && request.resource.data.customerUid == customerUid
+        && request.resource.data.restaurantId == resource.data.restaurantId;
+      allow delete: if false;
+    }
+
+    // Staff records are provisioned manually by a trusted project owner in Console.
+    match /staff/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+  }
+}

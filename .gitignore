@@ -1,0 +1,8 @@
+.DS_Store
+Thumbs.db
+.vscode/
+.firebase/
+node_modules/
+.env
+.env.*
+serviceAccountKey.json
