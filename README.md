@@ -297,7 +297,7 @@ http://localhost:5500
 - QR code generation for restaurant tables.
 - Menu availability management.
 - Loyalty rewards redemption.
-- Real payment gateway integration.
+- Real payment gateway integration..
 - Improved customer account management.
 
 ## Author
